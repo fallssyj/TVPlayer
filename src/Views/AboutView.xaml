@@ -1,0 +1,309 @@
+﻿<UserControl
+    x:Class="TVPlayer.Views.AboutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:TVPlayer.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    TextElement.FontFamily="/Assets/Fonts/GeoSlab.ttf#GeoSlab703 MdCn BT"
+    mc:Ignorable="d">
+    <Border Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Width="20"
+                        Height="20"
+                        Margin="10,0,0,8">
+                        <Image.Source>
+                            <DrawingImage Drawing="{StaticResource logo}" />
+                        </Image.Source>
+                    </Image>
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="5,0,0,5"
+                        VerticalAlignment="Bottom"
+                        FontSize="18"
+                        Text="{Binding Author, StringFormat='TVPlayer Author {0}'}" />
+                    <TextBlock
+                        Grid.Column="2"
+                        Margin="5,0,0,5"
+                        VerticalAlignment="Bottom"
+                        FontSize="18"
+                        Text="{Binding CompileVersion, StringFormat='CompileVersion {0}'}" />
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Path
+                        Grid.Column="0"
+                        Width="20"
+                        Height="20"
+                        Margin="10,0,0,8"
+                        VerticalAlignment="Bottom"
+                        Data="{StaticResource blog}"
+                        Fill="{DynamicResource ActionIconColor}"
+                        Stretch="Uniform" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="5,0,0,5"
+                        VerticalAlignment="Bottom"
+                        FontSize="18"
+                        Text="51syj.club">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding BlogLinkCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="TextDecorations" Value="Underline" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="TextDecorations" Value="Underline" />
+                                        <Setter Property="Foreground" Value="Blue" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Path
+                        Grid.Column="0"
+                        Width="20"
+                        Height="20"
+                        Margin="10,0,0,8"
+                        VerticalAlignment="Bottom"
+                        Data="{StaticResource mail}"
+                        Fill="{DynamicResource ActionIconColor}"
+                        Stretch="Uniform" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="5,0,0,5"
+                        VerticalAlignment="Bottom"
+                        FontSize="18"
+                        Text="falls_syj@qq.com">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding EmailLinkCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="TextDecorations" Value="Underline" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="TextDecorations" Value="Underline" />
+                                        <Setter Property="Foreground" Value="Blue" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Path
+                        Grid.Column="0"
+                        Width="20"
+                        Height="20"
+                        Margin="10,0,0,8"
+                        VerticalAlignment="Bottom"
+                        Data="{StaticResource github}"
+                        Fill="{DynamicResource ActionIconColor}"
+                        Stretch="Uniform" />
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="5,0,0,5"
+                        VerticalAlignment="Bottom"
+                        FontSize="18"
+                        Text="fallssyj">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding GithublLinkCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="TextDecorations" Value="Underline" />
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="TextDecorations" Value="Underline" />
+                                        <Setter Property="Foreground" Value="Blue" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                </Grid>
+
+
+
+            </Grid>
+            <TextBlock
+                Grid.Row="1"
+                Margin="10,0"
+                FontSize="20"
+                Text="Thanks to" />
+            <ListBox Grid.Row="2" ItemsSource="{Binding AboutModels}">
+
+                <ListBox.Resources>
+                    <!--  自定义滚动条样式  -->
+                    <Style TargetType="ScrollBar">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ScrollBar">
+                                    <Grid>
+                                        <!--  滚动条按钮部分  -->
+                                        <Track Name="PART_Track" Grid.Row="1">
+                                            <Track.Thumb>
+                                                <Thumb>
+                                                    <Thumb.Template>
+                                                        <ControlTemplate TargetType="{x:Type Thumb}">
+                                                            <Border
+                                                                x:Name="dd"
+                                                                Width="8"
+                                                                Background="#d4d4d4"
+                                                                CornerRadius="4" />
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter TargetName="dd" Property="Background" Value="#c4c4c4" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Thumb.Template>
+                                                </Thumb>
+                                            </Track.Thumb>
+                                        </Track>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleY="-1" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="MinHeight" Value="50" />
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid>
+                                        <Border
+                                            x:Name="border"
+                                            BorderBrush="#1ecc94"
+                                            BorderThickness="0.2"
+                                            CornerRadius="5" />
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Grid>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource SecundaryBlueColor}" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#2b9f6b" />
+                                            <Setter TargetName="border" Property="BorderBrush" Value="Transparent" />
+                                        </Trigger>
+
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="Transparent">
+                            <StackPanel Margin="10,0" Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    VerticalAlignment="Center"
+                                    Kind="Github" />
+                                <TextBlock
+                                    Margin="5,0"
+                                    VerticalAlignment="Center"
+                                    FontFamily="/Assets/Fonts/GeoSlab.ttf#GeoSlab703 MdCn BT"
+                                    FontSize="18"
+                                    Text="{Binding Name}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.MouseDoubleCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                            <Setter Property="TextDecorations" Value="Underline" />
+                                            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryColor}" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="TextDecorations" Value="Underline" />
+                                                    <Setter Property="Foreground" Value="Blue" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Border>
+</UserControl>

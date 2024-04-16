@@ -1,0 +1,290 @@
+﻿<UserControl
+    x:Class="TVPlayer.Views.FavoriteView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:TVPlayer.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SizeChanged">
+            <i:InvokeCommandAction Command="{Binding WindowSizeChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Border Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Margin="0,5,20,10">
+                <materialDesign:ColorZone
+                    Width="250"
+                    Padding="8,4,8,4"
+                    materialDesign:ElevationAssist.Elevation="Dp2"
+                    CornerRadius="5"
+                    Mode="Standard">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:PackIcon
+                            VerticalAlignment="Center"
+                            Kind="Search"
+                            Opacity=".56" />
+                        <TextBox
+                            Grid.Column="1"
+                            Width="200"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="搜索"
+                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            BorderThickness="0"
+                            FontWeight="Light"
+                            Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchInputCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </Grid>
+                </materialDesign:ColorZone>
+                <materialDesign:ColorZone
+                    Width="160"
+                    Padding="8,4,8,4"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    materialDesign:ElevationAssist.Elevation="Dp2"
+                    CornerRadius="5"
+                    Mode="Standard">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:PackIcon
+                            Margin="0,3,0,0"
+                            VerticalAlignment="Center"
+                            Kind="FormatListBulletedType"
+                            Opacity=".56" />
+                        <ComboBox
+                            Grid.Column="1"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                            BorderThickness="0"
+                            FontSize="13"
+                            FontWeight="Light"
+                            ItemsSource="{Binding GroupTitles}"
+                            SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding GroupTitlesChangedCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </Grid>
+                </materialDesign:ColorZone>
+            </Grid>
+
+
+            <ListBox
+                Grid.Row="1"
+                ItemContainerStyle="{StaticResource ItemContainerStyle}"
+                ItemsSource="{Binding Favorites}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding PlayerargCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ListBox}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListBox.Resources>
+                    <!--  自定义滚动条样式  -->
+                    <Style TargetType="ScrollBar">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ScrollBar">
+                                    <Grid>
+                                        <!--  滚动条按钮部分  -->
+                                        <Track Name="PART_Track" Grid.Row="1">
+                                            <Track.Thumb>
+                                                <Thumb>
+                                                    <Thumb.Template>
+                                                        <ControlTemplate TargetType="{x:Type Thumb}">
+                                                            <Border
+                                                                x:Name="dd"
+                                                                Width="8"
+                                                                Background="#d4d4d4"
+                                                                CornerRadius="4" />
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter TargetName="dd" Property="Background" Value="#c4c4c4" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Thumb.Template>
+                                                </Thumb>
+                                            </Track.Thumb>
+                                        </Track>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleY="-1" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="130" Background="Transparent">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+
+                            </Grid.RowDefinitions>
+                            <Image
+                                Grid.Row="0"
+                                Width="140"
+                                Height="60"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="{Binding Tvglogo}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Tvglogo.Length}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Tvglogo}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock
+                                Grid.Row="0"
+                                Margin="15,5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Foreground="#ffffff"
+                                Text="{Binding Tvgname}"
+                                TextTrimming="CharacterEllipsis">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Tvglogo.Length}" Value="0">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Tvglogo}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <Button
+                                Grid.Row="0"
+                                Margin="10"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Command="{Binding DataContext.FavoriteCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                CommandParameter="{Binding}"
+                                Content="{Binding Favorite, Converter={StaticResource FavoriteConverter}}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Cursor" Value="Hand" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="Visibility" Value="Collapsed" />
+
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Padding="5" Background="Transparent">
+                                                        <Path
+                                                            x:Name="ico"
+                                                            Width="15"
+                                                            Height="15"
+                                                            Data="{TemplateBinding Content}"
+                                                            Fill="#ffffff"
+                                                            Stretch="Uniform" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="ico" Property="Stroke" Value="#ff0000" />
+                                                        </Trigger>
+
+                                                        <DataTrigger Binding="{Binding Favorite}" Value="True">
+                                                            <Setter TargetName="ico" Property="Fill" Value="#ff0000" />
+                                                        </DataTrigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Border
+                                Margin="6"
+                                Padding="5"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Background="#232323"
+                                CornerRadius="5">
+                                <TextBlock
+                                    FontSize="10"
+                                    FontWeight="Light"
+                                    Foreground="#ffffff">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="{Binding Grouptitle}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Grouptitle}" Value="{x:Null}">
+                                                    <Setter Property="Text" Value="未分类" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Grouptitle.Length}" Value="0">
+                                                    <Setter Property="Text" Value="未分类" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Border>
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid VerticalAlignment="Top" Columns="{Binding ColumnCount}" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+            </ListBox>
+
+        </Grid>
+    </Border>
+</UserControl>

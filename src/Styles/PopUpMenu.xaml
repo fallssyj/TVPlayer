@@ -1,0 +1,63 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:collections="clr-namespace:System.Collections;assembly=System.Runtime.Extensions">
+
+
+    <Style
+        x:Key="FlyleafContextMenu"
+        BasedOn="{StaticResource MaterialDesignMenu}"
+        TargetType="{x:Type ContextMenu}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuBase}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Border
+                                Margin="0"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                Effect="{DynamicResource MaterialDesignShadowDepth1}" />
+
+                            <Border Margin="0" Background="Transparent">
+                                <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                                    <Grid Margin="0,0" RenderOptions.ClearTypeHint="Enabled">
+                                        <ItemsPresenter
+                                            x:Name="ItemsPresenter"
+                                            Grid.IsSharedSizeScope="True"
+                                            KeyboardNavigation.DirectionalNavigation="Cycle"
+                                            KeyboardNavigation.TabNavigation="Cycle"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </Grid>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </AdornerDecorator>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <collections:ArrayList x:Key="MenuVideoStreams" x:Shared="False">
+        <MenuItem Header="{Binding Player.Video.Streams}">
+            <MenuItem.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat=" {0}x{1} @{2:#,#.00} ({3}/{4})">
+                                <Binding Path="Width" />
+                                <Binding Path="Height" />
+                                <Binding Path="FPS" />
+                                <Binding Path="Codec" />
+                                <Binding Path="PixelFormatStr" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </MenuItem.HeaderTemplate>
+        </MenuItem>
+
+
+    </collections:ArrayList>
+
+</ResourceDictionary>
