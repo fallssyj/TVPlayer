@@ -5,6 +5,10 @@ param (
 	$OutputPath = '.\bin\TVPlayer'
 )
 
+if ( Test-Path -Path .\bin\TVPlayer) {
+    rm -Recurse -Force $OutputPath
+}
+
 Write-Host 'Building'
 
 dotnet publish `
@@ -24,6 +28,12 @@ if ( Test-Path -Path .\bin\TVPlayer) {
 
 Write-Host 'Build done'
 
+cp LICENSE "$OutputPath\LICENSE"
+
+7z a .\bin\TVPlayer.7z $OutputPath
+
 ls $OutputPath
+
+
 
 exit 0
