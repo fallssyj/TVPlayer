@@ -19,12 +19,11 @@
 
                 <ResourceDictionary Source="Themes/LightTheme.xaml" />
                 <ResourceDictionary Source="Assets/Icons/Icons.xaml" />
-                <ResourceDictionary Source="/Styles/Slider.xaml" />
 
+                <ResourceDictionary Source="Styles/Slider.xaml" />
                 <ResourceDictionary Source="Styles/MainStyle.xaml" />
                 <ResourceDictionary Source="Styles/ItemContainerStyle.xaml" />
 
-                <ResourceDictionary Source="Styles/PopUpMenu.xaml" />
 
 
             </ResourceDictionary.MergedDictionaries>

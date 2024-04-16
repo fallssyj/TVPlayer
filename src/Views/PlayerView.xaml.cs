@@ -9,7 +9,6 @@ namespace TVPlayer.Views
     /// </summary>
     public partial class PlayerView : Window
     {
-        public static PlayerView Instance { get; private set; }
         public PlayerView(IEventAggregator eventAggregator)
         {
             Instance = this;
@@ -18,6 +17,18 @@ namespace TVPlayer.Views
             {
                 if (m.Arg == MessageArg.Close) Close();
             }, false);
+            Closing += (s, e) => { Instance = null; };
+        }
+
+        public static PlayerView Instance { get; private set; }
+
+        public static void ShowInstance(IEventAggregator aggregator)
+        {
+            if (Instance == null)
+            {
+                Instance = new PlayerView(aggregator);
+                Instance.Show();
+            }
         }
 
     }

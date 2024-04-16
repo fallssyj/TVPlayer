@@ -14,7 +14,7 @@ namespace TVPlayer.ViewModels
     public class PlayerViewModel : BindableBase
     {
 
-        private string _title;
+        private string _title = "";
         public string Title
         {
             get { return _title; }
@@ -45,16 +45,14 @@ namespace TVPlayer.ViewModels
 
         public DelegateCommand CloseWindowCommand { get; set; }
         public DelegateCommand MinWindowCommand { get; set; }
-        public DelegateCommand<object> OpenContextMenu { get; set; }
-
         public DelegateCommand ShowDebugCommand { get; private set; }
+
 
         /// <summary>
         /// 初始化一些操作
         /// </summary
         private void InitializeComponents()
         {
-
             InitFlyleaf();
             InitCommand();
         }
@@ -100,16 +98,6 @@ namespace TVPlayer.ViewModels
             {
                 Player.Dispose();
                 aggregator.GetEvent<MessageEvent>().Publish(new MessageModel { Arg = MessageArg.Close });
-            });
-
-            OpenContextMenu = new DelegateCommand<object>((obj) =>
-            {
-                FrameworkElement element = (FrameworkElement)obj;
-                if (element == null || element.ContextMenu == null)
-                    return;
-
-                element.ContextMenu.PlacementTarget = element;
-                element.ContextMenu.IsOpen = true;
             });
 
             ShowDebugCommand = new DelegateCommand(() =>

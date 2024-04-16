@@ -88,11 +88,11 @@ namespace TVPlayer.ViewModels
         public DelegateCommand<Channel> PlayerargCommand { get; private set; }
 
         public DelegateCommand<Channel> FavoriteCommand { get; set; }
+
         public DelegateCommand<string> GroupTitlesChangedCommand { get; set; }
 
         public DelegateCommand SearchInputCommand { get; set; }
 
-        private PlayerView _playerWindow { get; set; }
 
         /// <summary>
         /// 初始化一些操作
@@ -228,12 +228,7 @@ namespace TVPlayer.ViewModels
         {
             if (_channel != null)
             {
-                if (_playerWindow == null)
-                {
-                    _playerWindow = new PlayerView(aggregator);
-                    _playerWindow.Show();
-                    _playerWindow.Closing += ((s, e) => _playerWindow = null);
-                }
+                PlayerView.ShowInstance(aggregator);
                 aggregator.GetEvent<MessageEvent>().Publish(new MessageModel { Arg = MessageArg.Player, Message = _channel });
             }
 
