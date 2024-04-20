@@ -244,8 +244,8 @@ namespace TVPlayer.ViewModels
                 {
                     if (c.isSelect)
                     {
-                        if (!File.Exists($"{ConfigUtils.AppStartPath}/{c.path}")) return null;
-                        string str = File.ReadAllText($"{ConfigUtils.AppStartPath}/{c.path}");
+                        if (!File.Exists($"{ConfigUtils.AppDataPath}/{c.path}")) return null;
+                        string str = File.ReadAllText($"{ConfigUtils.AppDataPath}/{c.path}");
                         return JsonConvert.DeserializeObject<ObservableCollection<Channel>>(str);
                     }
                 }

@@ -18,8 +18,8 @@ namespace TVPlayer.Common.Utils
             config.Player.MaxLatency = 0;
             config.Player.MinLatency = 0;
             config.Player.LatencySpeedChangeInterval = 7000000;
-            config.Player.FolderRecordings = $"{ConfigUtils.AppStartPath}/Recordings";
-            config.Player.FolderSnapshots = $"{ConfigUtils.AppStartPath}/Snapshots";
+            config.Player.FolderRecordings = $"{ConfigUtils.AppDataPath}/Recordings";
+            config.Player.FolderSnapshots = $"{ConfigUtils.AppDataPath}/Snapshots";
             config.Player.SeekAccurate = false;
             config.Player.SnapshotFormat = "bmp";
             config.Player.Stats = false;

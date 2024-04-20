@@ -15,10 +15,10 @@ namespace TVPlayer.Common.Utils
     public class ConfigUtils
     {
         public static string useragent = $"TVPlayer/{GetCompileVersion()}";
-        public static string AppStartPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static string ConfigFile = $"{AppStartPath}/config.json";
-        public static string Channelconfig = $"config";
-        public static string ChannelConfiguration = $"{AppStartPath}/{Channelconfig}";
+        public static string AppDataPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TVPlayer";
+        public static string ConfigFile = $"{AppDataPath}/config.json";
+        public static string Channelconfig = $"configs";
+        public static string ChannelConfiguration = $"{AppDataPath}/{Channelconfig}";
 
         public static string GetCompileVersion()
         {
@@ -54,6 +54,7 @@ namespace TVPlayer.Common.Utils
         }
         public static void writeConfig(Config _config)
         {
+            if (!Directory.Exists(AppDataPath)) Directory.CreateDirectory(AppDataPath);
             string jsonStr = JsonConvert.SerializeObject(_config);
             File.WriteAllText(ConfigFile, jsonStr);
         }
@@ -99,13 +100,13 @@ namespace TVPlayer.Common.Utils
                         ObservableCollection<Channel> channelLists = ParseFileModule.ParseM3uFile(responseBody);
                         responseBody = JsonConvert.SerializeObject(channelLists);
                         _Count = channelLists.Count;
-                        File.WriteAllText($"{AppStartPath}/{path}", responseBody);
+                        File.WriteAllText($"{AppDataPath}/{path}", responseBody);
                         return _Count;
                     }
                     else
                     {
                         _Count = JsonConvert.DeserializeObject<ObservableCollection<Channel>>(responseBody).Count;
-                        File.WriteAllText($"{AppStartPath}/{path}", responseBody);
+                        File.WriteAllText($"{AppDataPath}/{path}", responseBody);
                         return _Count;
                     }
 
