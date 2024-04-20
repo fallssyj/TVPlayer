@@ -251,7 +251,11 @@ namespace TVPlayer.ViewModels
             {
                 for (var i = 0; i < Configs.ChannelConfigurations.Count; i++)
                 {
-                    if (Configs.ChannelConfigurations[i].name == Title) Configs.ChannelConfigurations[i] = chf;
+                    if (Configs.ChannelConfigurations[i].name == Title)
+                    {
+                        chf.path = $"{ConfigUtils.Channelconfig}/{chf.name}/Channel.json";
+                        Configs.ChannelConfigurations[i] = chf;
+                    }
                 }
                 CloseEditWindowCommand.Execute();
                 ConfigUtils.writeConfig(Configs);
