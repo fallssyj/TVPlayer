@@ -30,7 +30,7 @@ Write-Host 'Build done'
 
 cp LICENSE "$OutputPath\LICENSE"
 
-7z a .\bin\TVPlayer.7z $OutputPath
+7z a .\bin\TVPlayer.zip $OutputPath
 
 ls $OutputPath
 
