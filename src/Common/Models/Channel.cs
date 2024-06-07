@@ -45,6 +45,7 @@ namespace TVPlayer.Common.Models
             {
                 try
                 {
+                    client.Timeout = TimeSpan.FromSeconds(8);
                     using (var request = new HttpRequestMessage(HttpMethod.Head, Tvglogo))
                     using (var response = await client.SendAsync(request))
                     {
