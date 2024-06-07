@@ -60,20 +60,21 @@
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="10.935" />
+                        <ColumnDefinition Width="19.065"/>
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Path
                         Grid.Column="0"
                         Width="20"
                         Height="20"
-                        Margin="10,0,0,8"
-                        VerticalAlignment="Bottom"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Top"
                         Data="{StaticResource blog}"
                         Fill="{DynamicResource ActionIconColor}"
-                        Stretch="Uniform" />
+                        Stretch="Uniform" Grid.ColumnSpan="2" />
                     <TextBlock
-                        Grid.Column="1"
+                        Grid.Column="2"
                         Margin="5,0,0,5"
                         VerticalAlignment="Bottom"
                         FontSize="18"

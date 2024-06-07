@@ -38,8 +38,9 @@ namespace TVPlayer.ViewModels
         public ObservableCollection<Channel> ChannelList
         {
             get { return _channelList; }
-            set { _channelList = value; RaisePropertyChanged(); }
+            set { _channelList = value; RaisePropertyChanged();}
         }
+
 
         private ObservableCollection<Channel> AllChannelList { get; set; }
 

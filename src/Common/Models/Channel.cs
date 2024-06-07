@@ -1,5 +1,7 @@
 ﻿using Prism.Mvvm;
 using System;
+using System.Net.Http;
+using System.Security.Policy;
 
 namespace TVPlayer.Common.Models
 {
@@ -30,8 +32,34 @@ namespace TVPlayer.Common.Models
         public string Tvglogo
         {
             get { return tvglogo; }
-            set { tvglogo = value; RaisePropertyChanged(); }
+            set { tvglogo = value;  RaisePropertyChanged(); LoadImage(); }
         }
+
+        private async void LoadImage()
+        {
+            if (string.IsNullOrEmpty(Tvglogo) || Tvglogo.Length == 0)
+            {
+                return;
+            }
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    using (var request = new HttpRequestMessage(HttpMethod.Head, Tvglogo))
+                    using (var response = await client.SendAsync(request))
+                    {
+                        if (!response.IsSuccessStatusCode) Tvglogo = "";
+                    }
+                }
+                catch
+                {
+                    Tvglogo = "";
+                    return;
+                }
+            }
+            
+        }
+
         private string grouptitle;
         /// <summary>
         /// 组名称
